@@ -12,10 +12,14 @@ namespace WindowsFormsTeplovoz
 {
     public partial class FormTeplo : Form
     {
-        private Teplovoz Teplo;
+        private ITransport Teplo;
         public FormTeplo()
         {
             InitializeComponent();
+            comboBoxNumber.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxNumber.SelectedIndex = 0;
+            comboBoxType.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxType.SelectedIndex = 0;
         }
         private void Draw()
         {
@@ -26,19 +30,20 @@ namespace WindowsFormsTeplovoz
         }
 
         /// <summary>
-        /// 
+        /// Обработка нажатия кнопки "Createn"
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ButtonCreate_Click(object sender, EventArgs e)
+        private void ButtonCreaten_Click(object sender, EventArgs e)
         {
             Random rnd = new Random();
-            int countDop = Convert.ToInt32(comboBox1.SelectedItem);
-            Teplo = new Teplovoz();
-            Teplo.Init( Color.Black, Color.Blue,true, Color.Blue, true, true ,countDop);
-            Teplo.SetPosition(rnd.Next(420, 500), rnd.Next(100, 381), pictureBoxTeplo.Width, pictureBoxTeplo.Height);
+            int countDop = Convert.ToInt32(comboBoxNumber.SelectedItem);
+            int tubeType = Convert.ToInt32(comboBoxType.SelectedIndex);
+            Teplo = new Teplovoz(rnd.Next(100, 300), rnd.Next(1000, 2000), Color.Blue, Color.Blue, true, true, countDop, tubeType);
+            Teplo.SetPosition(rnd.Next(100, 400), rnd.Next(100, 400), pictureBoxTeplo.Width, pictureBoxTeplo.Height);
             Draw();
         }
+
         /// <summary>
         /// 
         /// </summary>
@@ -66,7 +71,5 @@ namespace WindowsFormsTeplovoz
             }
             Draw(); 
         }
-
-        
     }
 }
